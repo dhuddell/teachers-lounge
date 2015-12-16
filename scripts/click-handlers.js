@@ -4,7 +4,7 @@ $('#upload').on('submit', function(e) {
     e.preventDefault();
     var formData = new FormData(e.target);
 
-    formData.append('name', $("#filename").val());
+    formData.append('title', $("#filename").val());
 
     $.ajax({
        xhrFields: {
@@ -23,6 +23,16 @@ $('#upload').on('submit', function(e) {
     });
 
   });
+
+$('#search').on('submit', function(e){
+      e.preventDefault();
+      var searchParam = $('#searchInput').val();
+      lounge_api.searchProjects(searchParam, function(err, data){
+          handleError(err, data, function() {
+              alert("broke");
+          });
+      });
+});
 
 
 

@@ -112,7 +112,15 @@ var lounge_api = {
             }
 
         }, callback);
-    }
+    },
+
+    searchProjects: function searchProjects(searchParam, callback) {
+        this.ajax({
+          method: 'GET',
+          url: this.url + '/all_projects?q=' + searchParam,
+          dataType: 'json'
+        }, callback);
+      }
 
 
 };
