@@ -21,10 +21,9 @@ $('#upload').on('submit', function(e) {
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
-
   });
 
-$('#search').on('submit', function(e){
+  $('#search').on('submit', function(e){
       e.preventDefault();
       var searchParam = $('#searchInput').val();
       lounge_api.searchProjects(searchParam, function(err, data){
@@ -32,7 +31,7 @@ $('#search').on('submit', function(e){
               alert("broke");
           });
       });
-});
+  });
 
 
 
@@ -103,10 +102,10 @@ $('#search').on('submit', function(e){
           $('.modal-backdrop').remove();
           $('#logout-button-text').show();
           $('.jumbotron').hide();
-          $('#project-table-header').show();
           $('#show-project-list').show();
-          $('#project-table').show();
           $('#add-new-project').show();
+          $('#upload').show();
+          $('#search').show();
       });
   });
 
@@ -136,6 +135,9 @@ $('#search').on('submit', function(e){
               '<tr data-id=' + project._id + '><td>' + project.title +  '</td><td>' + project.description + '</td><td>' + project.subject + '</td><td>' + project.grade + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
           });
           $('#show-project-list').hide();
+          $('#project-table').show();
+          $('#project-table-header').show();
+
       });
   });
 

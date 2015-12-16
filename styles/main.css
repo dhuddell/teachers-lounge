@@ -233,11 +233,7 @@ font-family: 'Quicksand', sans-serif;}
   width: 185px;
 }
 
-#project-table {
-  display: none;
-}
-
-#project-table-header {
+#project-table, #project-table-header, .upload-confirm, #upload, #search {
   display: none;
 }
 

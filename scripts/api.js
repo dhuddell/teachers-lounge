@@ -117,8 +117,11 @@ var lounge_api = {
     searchProjects: function searchProjects(searchParam, callback) {
         this.ajax({
           method: 'GET',
-          url: this.url + '/all_projects?q=' + searchParam,
-          dataType: 'json'
+          url: this.url + '/search_projects?title=' + searchParam,
+          dataType: 'json',
+          xhrFields: {
+                withCredentials: true
+            }
         }, callback);
       }
 
