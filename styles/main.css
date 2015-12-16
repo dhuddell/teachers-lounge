@@ -10,6 +10,7 @@ font-family: 'Quicksand', sans-serif;}
 .nav-background {
   background-color: #585858;
   border-color: #585858;
+  border-radius: 0px;
 }
 
 #login-button-text {
@@ -30,8 +31,8 @@ font-family: 'Quicksand', sans-serif;}
 
 .jumbotron {
   text-align: center;
-  height: 350px;
-  background-image: url(./images/climber2-1440.jpg);
+  height: 400px;
+  background-image: url(http://www.thenation.com/wp-content/uploads/2015/03/empty_classroom_cc_img.jpg);
   background-size: 100% auto;
   background-repeat: no-repeat;
   margin-top: -20px;
@@ -51,9 +52,9 @@ font-family: 'Quicksand', sans-serif;}
 
 
 @media only screen and (max-width: 1000px) {
-   .jumbotron {
+   /*.jumbotron {
       background-image: url(./images/climber2-1000.jpg);
-    }
+    }*/
     #landing-page-headline {
       font-size: 42px;
     }
@@ -63,9 +64,9 @@ font-family: 'Quicksand', sans-serif;}
 }
 
 @media only screen and (max-width: 700px) {
-   .jumbotron {
+   /*.jumbotron {
       background-image: url(./images/climber2-700.jpg);
-    }
+    }*/
     #landing-page-headline {
       font-size: 28px;
     }
@@ -75,9 +76,9 @@ font-family: 'Quicksand', sans-serif;}
 }
 
 @media only screen and (max-width: 500px) {
-   .jumbotron {
+   /*.jumbotron {
       background-image: url(./images/climber2-500.jpg);
-    }
+    }*/
     #landing-page-headline {
       font-size: 24px;
     }
@@ -225,28 +226,28 @@ font-family: 'Quicksand', sans-serif;}
   display: none;
 }
 
-#show-activity-list {
+#show-project-list {
   display: none;
   background-color: #FF9009;
   border-color: #FF9009;
   width: 185px;
 }
 
-#activity-table {
+#project-table {
   display: none;
 }
 
-#activity-table-header {
+#project-table-header {
   display: none;
 }
 
-#add-new-activity {
+#add-new-project {
   display: none;
   background-color: #FF9009;
   border-color: #FF9009;
   width: 185px;
 }
 
-#update-activity {
+#update-project {
   display: none;
 }

@@ -149,12 +149,12 @@
     </div>
 
 
-    <!-- Show Activity List Button -->
-    <button type="button" class="btn btn-primary btn-lg" id="show-activity-list">View Your Projects</button>
+    <!-- Show Project List Button -->
+    <button type="button" class="btn btn-primary btn-lg" id="show-project-list">View Your Projects</button>
 
-    <!-- Activity List View-->
-    <table style="width:75%" class="table table-hover" align="center" id="activity-table">
-      <h1 id="activity-table-header">Your Projects</h1>
+    <!-- Project List View-->
+    <table style="width:75%" class="table table-hover" align="center" id="project-table">
+      <h1 id="project-table-header">Your Projects</h1>
       <tr>
         <th>Project Title</th>
         <th>Description</th>
@@ -166,12 +166,18 @@
     </table>
 
 
-    <!-- Add New Activity Button -->
-    <button type="button" class="btn btn-primary btn-lg" id="add-new-activity" data-toggle="modal" data-target="#add-new-activity-popup">Add a New Project</button>
+    <!-- Add New Project Button -->
+
+    <form id="upload">
+      <input id="filename" type="text" placeholder="File Name">
+      <input id="file-upload" type="file" name="file">
+      <input type="submit" value="Upload">
+    </form>
+    <button type="button" class="btn btn-primary btn-lg" id="add-new-project" data-toggle="modal" data-target="#add-new-project-popup">Add a New Project</button>
 
 
-    <!-- Add New Activity Modal-->
-    <div class="modal fade" id="add-new-activity-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Add New Project Modal-->
+    <div class="modal fade" id="add-new-project-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog register" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -180,8 +186,8 @@
           </div>
           <div class="modal-body">
 
-            <!-- Create New Activity -->
-            <form class="form-horizontal" id="create-activity">
+            <!-- Create New Project -->
+            <form class="form-horizontal" id="create-project">
               <div class="form-group">
                 <div class="row">
                   <label for="inputEmail3" class="col-sm-3 control-label">Project Title</label>
@@ -218,12 +224,6 @@
 
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                  <div class="checkbox">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-default">Submit</button>
                 </div>
               </div>
@@ -233,31 +233,43 @@
         </div>
       </div>
     </div>
-    <!-- Update Existing Activity Form-->
-    <form class="form-horizontal" id='update-activity'>
+
+    <!-- Update Existing Project Form-->
+    <form class="form-horizontal" id='update-project'>
       <div class="form-group">
         <div class="row">
           <label for="inputEmail3" class="col-sm-3 control-label">Project Title</label>
           <div class="col-sm-10 col-sm-offset-4">
-            <input type="text" name='title' class="form-control" required id='update-name' placeholder="Project Title" required>
+            <input type="text" name='title' class="form-control" id='update-title' placeholder="Project Title" required>
           </div>
         </div>
       </div>
 
-        <div class="form-group">
-          <label for="inputPassword3" class="col-sm-3 control-label">Subject</label>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-sm-3 control-label">Description</label>
           <div class="col-sm-10 col-sm-offset-4">
-            <input type="text" name='subject' class="form-control" id='update-city' placeholder="Subject" required>
+            <input type="text" name='description' class="form-control" id='update-description' placeholder="Short description">
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-              </label>
-            </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-3 control-label">Subject</label>
+        <div class="col-sm-10 col-sm-offset-4">
+          <input type="text" name='subject' class="form-control" id='update-subject' placeholder="Subject">
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="row">
+          <label class="col-sm-3 control-label">Grade</label>
+          <div class="col-sm-10 col-sm-offset-4">
+            <input type="text" name='grade' class="form-control" id='update-grade' placeholder="Grade level">
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-default">Submit</button>
