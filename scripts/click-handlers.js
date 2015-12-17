@@ -10,27 +10,17 @@ $('#upload').on('submit', function(e) {
        xhrFields: {
         withCredentials: true
       },
-      url: 'http://localhost:3000/project_zip_files',
+      url: 'http://localhost:3000/projects',
       method: 'POST',
       contentType: false,
       processData: false,
       data: formData
     }).done(function(data) {
       console.log((JSON.stringify(data, null, 2)));
-        // $(".files").append("<li><b> File: </b>" + "<a href=" + data.url + ">" + data.name + "</a>" + "<b> ID: </b>" + data._id + "<b> Create at: </b>" + data.createdAt +"</li>");
+
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
-  });
-
-  $('#search').on('submit', function(e){
-      e.preventDefault();
-      var searchParam = $('#searchInput').val();
-      lounge_api.searchProjects(searchParam, function(err, data){
-          handleError(err, data, function() {
-              alert("broke");
-          });
-      });
   });
 
 
@@ -78,13 +68,11 @@ $('#upload').on('submit', function(e) {
           handleError(err, data, function() {
               alert("Invalid credentials");
            });
-          // $('.register').hide();
           $('#reg-popup').modal('hide');
           $('.modal-backdrop').remove();
           $('#landing-page-reg-button').hide();
           $('#registration-complete').show();
 
-          // $('#login_form').css('margin', '0px auto');
 
       });
   });
@@ -125,14 +113,14 @@ $('#upload').on('submit', function(e) {
       e.preventDefault();
   });
 
-  // showProjects
+  // Index
   $('#show-project-list').on('click', function(e){
       e.preventDefault();
-      lounge_api.showProjects(function(err, data){
+      lounge_api.index(function(err, data){
           handleError(err,data);
           data.forEach(function(project){
             $('#project-table tr:last').after(
-              '<tr data-id=' + project._id + '><td>' + project.title +  '</td><td>' + project.description + '</td><td>' + project.subject + '</td><td>' + project.grade + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+              '<tr data-id=' + project._id + '><td>' + project.title +  '</td><td>' + project.description + '</td><td>' + project.subject + '</td><td>' + project.grade + '</td><td>' + project.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
           });
           $('#show-project-list').hide();
           $('#project-table').show();
@@ -141,21 +129,37 @@ $('#upload').on('submit', function(e) {
       });
   });
 
-  // CreateProject
-  $('#create-project').on('submit', function(e) {
+  // Search
+  $('#search').on('submit', function(e){
       e.preventDefault();
-      var credentials = form2object(this);
-      $('input:text').val('');
-      $('#add-new-project-popup').hide();
-      $('.modal-backdrop').remove();
-      lounge_api.createProject(credentials, function(err, data){
-        handleError(err,data);
-        $('#project-table tr:last').after(
-          '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+      var searchParam = $('#searchParam').val();
+      var keyParam = $('#keyParam').val();
+
+      lounge_api.search(keyParam, searchParam, function(err, data){
+          handleError(err, data, function() {
+              alert("broke");
+          });
+          var projectTemplate = Handlebars.compile($('#project-results').html());
+          var searchResults = projectTemplate({ projects: data});
+          $('.results').html(searchResults);
       });
   });
 
-  // destroyProject or display edit window
+  // Create
+  $('#create-project').on('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData(e.target);
+      $('input:text').val('');
+      $('#add-new-project-popup').hide();
+      $('.modal-backdrop').remove();
+      lounge_api.create(formData, function(err, data){
+        handleError(err,data);
+        $('#project-table tr:last').after(
+          '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td>' + data.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+      });
+  });
+
+  // Destroy or display edit window
   $('#project-table').on('click', function(event){
       event.preventDefault();
       var $target = $(event.target);
@@ -164,32 +168,31 @@ $('#upload').on('submit', function(e) {
           console.log("deleting ", id);
           $target.parent().parent().remove();
 
-          lounge_api.destroyProject(id, function(err, data){});
+          lounge_api.destroy(id, function(err, data){});
       }else if($target.hasClass("edit")){
           console.log("editing ", id);
 
-          $('#update-title').val($target.parent().prev().prev().prev().prev().text());
-          $('#update-description').val($target.parent().prev().prev().prev().text());
-          $('#update-subject').val($target.parent().prev().prev().text());
-          $('#update-grade').val($target.parent().prev().text());
+          $('#update-title').val($target.parent().prev().prev().prev().prev().prev().text());
+          $('#update-description').val($target.parent().prev().prev().prev().prev().text());
+          $('#update-subject').val($target.parent().prev().prev().prev().val());
+          $('#update-grade').val($target.parent().prev().prev().val());
           $('#update-project').show();
           $target.parent().parent().remove();
       }
   });
 
-  // UpdateProject
+  // Update
   $('#update-project').on('submit', function(e) {
       e.preventDefault();
-      var credentials = form2object(this);
+      var formData = new FormData(e.target);
       $('input:text').val('');
-      console.log(credentials);
+      $('#update-project').hide();
       console.log(id);
-      lounge_api.updateProject(id, credentials, function(err, data){
+      lounge_api.update(id, formData, function(err, data){
         handleError(err,data);
         $('#project-table tr:last').after(
-          '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+          '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td>' + data.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
         $('#update-project').hide();
-
       });
   });
 
