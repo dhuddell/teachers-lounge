@@ -1,30 +1,5 @@
 $(document).ready(function() {
 
-$('#upload').on('submit', function(e) {
-    e.preventDefault();
-    var formData = new FormData(e.target);
-
-    formData.append('title', $("#filename").val());
-
-    $.ajax({
-       xhrFields: {
-        withCredentials: true
-      },
-      url: 'http://localhost:3000/projects',
-      method: 'POST',
-      contentType: false,
-      processData: false,
-      data: formData
-    }).done(function(data) {
-      console.log((JSON.stringify(data, null, 2)));
-
-    }).fail(function(jqxhr) {
-      console.error(jqxhr);
-    });
-  });
-
-
-
   ////////////Login / Register Helper Fucntions
 
   var handleError = function handleError(error, data, optional_alert) {
@@ -174,8 +149,8 @@ $('#upload').on('submit', function(e) {
 
           $('#update-title').val($target.parent().prev().prev().prev().prev().prev().text());
           $('#update-description').val($target.parent().prev().prev().prev().prev().text());
-          $('#update-subject').val($target.parent().prev().prev().prev().val());
-          $('#update-grade').val($target.parent().prev().prev().val());
+          $("#update-subject option[value='" + $target.parent().prev().prev().prev().val() + "']").attr("selected", true);
+          $("#update-grade option[value='" + $target.parent().prev().prev().val() + "']").attr("selected", true);
           $('#update-project').show();
           $target.parent().parent().remove();
       }
