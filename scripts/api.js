@@ -1,8 +1,8 @@
 'use strict';
 
 var lounge_api = {
-    url: 'http://localhost:3000',
-    // url: 'http://ancient-scrubland-6716.herokuapp.com',
+    // url: 'http://localhost:3000',
+    url: 'https://mighty-earth-7735.herokuapp.com/',
 
     ajax: function(config, cb) {
         $.ajax(config).done(function(data, textStatus, jqxhr) {
@@ -52,7 +52,7 @@ var lounge_api = {
 
     ///// List and List Items
 
-    showProjects: function showProjects(callback) {
+    index: function index(callback) {
         this.ajax({
             method: 'GET',
             url: this.url + '/projects',
@@ -64,24 +64,38 @@ var lounge_api = {
         }, callback);
     },
 
-    showProject: function showProject(project_id, callback) {
+    // showProject: function showProject(project_id, callback) {
+    //     this.ajax({
+    //         method: 'GET',
+    //         url: this.url + '/projects' + project_id,
+    //         dataType: 'json',
+    //         xhrFields: {
+    //             withCredentials: true
+    //         },
+    //         dataType: 'json'
+    //     }, callback);
+    // },
+
+
+    search: function search(keyParam, searchParam, callback) {
         this.ajax({
-            method: 'GET',
-            url: this.url + '/projects' + project_id,
-            dataType: 'json',
-            xhrFields: {
+          method: 'GET',
+          url: this.url + '/projects?' + keyParam + '=' + searchParam,
+          dataType: 'json',
+          xhrFields: {
                 withCredentials: true
             },
-            dataType: 'json'
+          dataType: 'json'
         }, callback);
     },
 
-    createProject: function createProject(project, callback) {
+    create: function create(project, callback) {
         this.ajax({
             method: 'POST',
             url: this.url + '/projects',
-            contentType: 'application/json',
-            data: JSON.stringify(project),
+            contentType: false,
+            processData: false,
+            data: project,
             xhrFields: {
                 withCredentials: true
             },
@@ -89,20 +103,23 @@ var lounge_api = {
         }, callback);
     },
 
-    updateProject: function updateProject(project_id, project, callback) {
+    update: function update(project_id, project, callback) {
         this.ajax({
             method: 'PATCH',
-            contentType: 'application/json',
             url: this.url + '/projects/' + project_id,
-            data: JSON.stringify(project),
+            contentType: false,
+            processData: false,
+            data: project,
             dataType: 'json',
             xhrFields: {
                 withCredentials: true
-            }
+            },
+            dataType: 'json'
+
         }, callback);
     },
 
-    destroyProject: function destroyProject(project_id, callback) {
+    destroy: function destroy(project_id, callback) {
         this.ajax({
             method: 'DELETE',
             url: this.url + '/projects/' + project_id,
@@ -113,6 +130,5 @@ var lounge_api = {
 
         }, callback);
     }
-
 
 };
