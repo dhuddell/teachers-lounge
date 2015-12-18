@@ -129,8 +129,11 @@ $(document).ready(function() {
       $('.modal-backdrop').remove();
       lounge_api.create(formData, function(err, data){
         handleError(err,data);
-        $('#project-table tr:last').after(
-          '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td>' + data.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+        // $('#project-table tr:last').after(
+        //   '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td>' + data.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+          var myProjectsTemplate = Handlebars.compile($('#project-show').html());
+          var myCurrentProjects = MyProjectsTemplate({ projects: data});
+          $('.myProjects').html(myCurrentProjects);
       });
   });
 

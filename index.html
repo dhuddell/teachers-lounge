@@ -153,6 +153,8 @@
     <button type="button" class="btn btn-primary btn-lg" id="show-project-list">View Your Projects</button>
 
     <!-- Project List View-->
+    <div class="myProjects"></div>
+
     <table style="width:75%" class="table table-hover" align="center" id="project-table">
       <h1 id="project-table-header">Your Projects</h1>
       <tr>
@@ -165,12 +167,32 @@
         <th></th>
       </tr>
     </table>
-
+<!--
+'<tr data-id=' + data._id + '>
+  <td>' + data.title +  '</td>
+  <td>' + data.description + '</td>
+  <td>' + data.subject + '</td>
+  <td>' + data.grade + '</td>
+  <td>' + data.url + '</td>
+  <td><button class="edit btn btn-primary">Edit</button></td>
+  <td><button class="delete btn btn-danger">Delete</button></td>
+</tr>'); -->
+    <script type="text/x-handlebars-template" id="project-show">
+      <ul data-id= {{_id}}>
+        {{#each projects}}
+          <li><h4>{{title}}</h4></li>
+          <li>Description: {{description}}</li><br>
+          <li>Grade level: {{grade}}</li><br>
+          <li>Subject: {{subject}}</li><br>
+          <li><h2>Download <a href={{url}}>Project</a></h2></li>
+        {{/each}}
+      </ul>
+    </script>
 
     <!-- Add New Project Button -->
     <button type="button" class="btn btn-primary btn-lg" id="add-new-project" data-toggle="modal" data-target="#add-new-project-popup">Add a New Project</button>
 
-<!-- Update Existing Project Form-->
+    <!-- Update Existing Project Form-->
     <form class="form-horizontal" enctype="multipart/form-data" id='update-project'>
       <div class="form-group">
         <div class="row">
