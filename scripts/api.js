@@ -2,7 +2,7 @@
 
 var lounge_api = {
     // url: 'http://localhost:3000',
-    url: 'https://mighty-earth-7735.herokuapp.com/',
+    url: 'https://mighty-earth-7735.herokuapp.com',
 
     ajax: function(config, cb) {
         $.ajax(config).done(function(data, textStatus, jqxhr) {
