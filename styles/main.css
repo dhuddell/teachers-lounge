@@ -247,3 +247,6 @@ font-family: 'Quicksand', sans-serif;}
 #update-project {
   display: none;
 }
+ul{
+ list-style-type: none;
+}

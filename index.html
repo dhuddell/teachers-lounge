@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Dan Huddell">
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1">
+ -->    <meta name="author" content="Dan Huddell">
     <title>The Teachers' Lounge</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -155,38 +155,29 @@
     <!-- Project List View-->
     <div class="myProjects"></div>
 
-    <table style="width:75%" class="table table-hover" align="center" id="project-table">
-      <h1 id="project-table-header">Your Projects</h1>
-      <tr>
-        <th>Project Title</th>
-        <th>Description</th>
-        <th>Subject</th>
-        <th>Grade</th>
-        <th>URL</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </table>
-<!--
-'<tr data-id=' + data._id + '>
-  <td>' + data.title +  '</td>
-  <td>' + data.description + '</td>
-  <td>' + data.subject + '</td>
-  <td>' + data.grade + '</td>
-  <td>' + data.url + '</td>
-  <td><button class="edit btn btn-primary">Edit</button></td>
-  <td><button class="delete btn btn-danger">Delete</button></td>
-</tr>'); -->
     <script type="text/x-handlebars-template" id="project-show">
-      <ul data-id= {{_id}}>
+        <ul data-id= {{_id}}>
+          <h4>Title: <li>{{title}}</li></h4>
+          Description: <li>{{description}}</li><br>
+          Grade level: <li>{{grade}}</li><br>
+          Subject: <li>{{subject}}</li><br>
+          Download <li><a href={{url}}>Project</a></li>
+          <li><button class="edit btn btn-primary">Edit</button>
+              <button class="delete btn btn-danger">Delete</button></li>
+        </ul>
+    </script>
+    <script type="text/x-handlebars-template" id="project-show-all">
         {{#each projects}}
-          <li><h4>{{title}}</h4></li>
-          <li>Description: {{description}}</li><br>
-          <li>Grade level: {{grade}}</li><br>
-          <li>Subject: {{subject}}</li><br>
-          <li><h2>Download <a href={{url}}>Project</a></h2></li>
+        <ul data-id= {{_id}}>
+          <h4>Title: <li>{{title}}</li></h4>
+          Description: <li>{{description}}</li><br>
+          Grade level: <li>{{grade}}</li><br>
+          Subject: <li>{{subject}}</li><br>
+          Download: <li><a href={{url}}>Project</a></li>
+          <li><button class="edit btn btn-primary">Edit</button>
+              <button class="delete btn btn-danger">Delete</button></li>
+        </ul>
         {{/each}}
-      </ul>
     </script>
 
     <!-- Add New Project Button -->

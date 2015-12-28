@@ -93,10 +93,10 @@ $(document).ready(function() {
       e.preventDefault();
       lounge_api.index(function(err, data){
           handleError(err,data);
-          data.forEach(function(project){
-            $('#project-table tr:last').after(
-              '<tr data-id=' + project._id + '><td>' + project.title +  '</td><td>' + project.description + '</td><td>' + project.subject + '</td><td>' + project.grade + '</td><td>' + project.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
-          });
+          var myProjectsTemplate = Handlebars.compile($('#project-show-all').html());
+          var myCurrentProjects = myProjectsTemplate({ projects: data});
+          $('.myProjects').html(myCurrentProjects);
+
           $('#show-project-list').hide();
           $('#project-table').show();
           $('#project-table-header').show();
@@ -129,16 +129,14 @@ $(document).ready(function() {
       $('.modal-backdrop').remove();
       lounge_api.create(formData, function(err, data){
         handleError(err,data);
-        // $('#project-table tr:last').after(
-        //   '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td>' + data.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
           var myProjectsTemplate = Handlebars.compile($('#project-show').html());
-          var myCurrentProjects = MyProjectsTemplate({ projects: data});
+          var myCurrentProjects = myProjectsTemplate(data);
           $('.myProjects').html(myCurrentProjects);
       });
   });
 
   // Destroy or display edit window
-  $('#project-table').on('click', function(event){
+  $('.myProjects').on('click', function(event){
       event.preventDefault();
       var $target = $(event.target);
       id = $target.parent().parent().data('id');
