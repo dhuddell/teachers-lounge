@@ -100,7 +100,7 @@ $(document).ready(function() {
           var myCurrentProjects = myProjectsTemplate({ projects: data});
           $('.myProjects').html(myCurrentProjects);
 
-          $('#show-project-list').hide();
+          // $('#show-project-list').hide();
           $('#project-table').show();
           $('#project-table-header').show();
 
@@ -141,7 +141,7 @@ $(document).ready(function() {
   $('.myProjects').on('click', function(event){
       event.preventDefault();
       var $target = $(event.target);
-      id = $target.parent().parent().data('id');
+      id = $target.parent().data('id');
       if($target.hasClass("delete")){
           console.log("deleting ", id);
           $target.parent().remove();
@@ -155,7 +155,7 @@ $(document).ready(function() {
           $("#update-subject option[value='" + $target.prev().children().first().next().next().text() + "']").attr("selected", true);
           $("#update-grade option[value='" + $target.parent().prev().children().last().prev().prev().prev().text() + "']").attr("selected", true);
           $('#update-project').show();
-          $target.parent().parent().remove();
+          $target.parent().remove();
       }
   });
 
