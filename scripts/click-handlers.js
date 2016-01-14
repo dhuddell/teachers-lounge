@@ -39,6 +39,8 @@ $(document).ready(function() {
       e.preventDefault();
       var credentials = form2object(this);
       console.log(credentials);
+      $('.loading').show();
+
       lounge_api.signup(credentials, function(err, data) {
           handleError(err, data, function() {
               alert("Invalid credentials");
@@ -48,7 +50,6 @@ $(document).ready(function() {
           $('#landing-page-reg-button').hide();
           $('#registration-complete').show();
 
-
       });
   });
 
@@ -57,6 +58,8 @@ $(document).ready(function() {
   $('#login-form').on('submit', function(e) {
       e.preventDefault();
       var credentials = form2object(this);
+      $('.loading').show();
+
       lounge_api.login(credentials, function(err, data) {
           handleError(err, data, function() {
               alert("Invalid credentials");
@@ -112,7 +115,6 @@ $(document).ready(function() {
 
       lounge_api.search(keyParam, searchParam, function(err, data){
           handleError(err, data, function() {
-              alert("broke");
           });
           var projectTemplate = Handlebars.compile($('#project-results').html());
           var searchResults = projectTemplate({ projects: data});
@@ -131,7 +133,7 @@ $(document).ready(function() {
         handleError(err,data);
           var myProjectsTemplate = Handlebars.compile($('#project-show').html());
           var myCurrentProjects = myProjectsTemplate(data);
-          $('.myProjects').html(myCurrentProjects);
+          $('.myProjects').append(myCurrentProjects);
       });
   });
 
@@ -142,16 +144,16 @@ $(document).ready(function() {
       id = $target.parent().parent().data('id');
       if($target.hasClass("delete")){
           console.log("deleting ", id);
-          $target.parent().parent().remove();
-
+          $target.parent().remove();
           lounge_api.destroy(id, function(err, data){});
+
       }else if($target.hasClass("edit")){
           console.log("editing ", id);
-
-          $('#update-title').val($target.parent().prev().prev().prev().prev().prev().text());
-          $('#update-description').val($target.parent().prev().prev().prev().prev().text());
-          $("#update-subject option[value='" + $target.parent().prev().prev().prev().val() + "']").attr("selected", true);
-          $("#update-grade option[value='" + $target.parent().prev().prev().val() + "']").attr("selected", true);
+          //THIS IS SUPER UGLY
+          $('#update-title').val($target.prev().prev().text());
+          $('#update-description').val($target.prev().children().first().text());
+          $("#update-subject option[value='" + $target.prev().children().first().next().next().text() + "']").attr("selected", true);
+          $("#update-grade option[value='" + $target.parent().prev().children().last().prev().prev().prev().text() + "']").attr("selected", true);
           $('#update-project').show();
           $target.parent().parent().remove();
       }
