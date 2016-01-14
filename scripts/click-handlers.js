@@ -39,6 +39,8 @@ $(document).ready(function() {
       e.preventDefault();
       var credentials = form2object(this);
       console.log(credentials);
+      $('.loading').show();
+
       lounge_api.signup(credentials, function(err, data) {
           handleError(err, data, function() {
               alert("Invalid credentials");
@@ -48,7 +50,6 @@ $(document).ready(function() {
           $('#landing-page-reg-button').hide();
           $('#registration-complete').show();
 
-
       });
   });
 
@@ -57,6 +58,8 @@ $(document).ready(function() {
   $('#login-form').on('submit', function(e) {
       e.preventDefault();
       var credentials = form2object(this);
+      $('.loading').show();
+
       lounge_api.login(credentials, function(err, data) {
           handleError(err, data, function() {
               alert("Invalid credentials");
@@ -93,11 +96,11 @@ $(document).ready(function() {
       e.preventDefault();
       lounge_api.index(function(err, data){
           handleError(err,data);
-          data.forEach(function(project){
-            $('#project-table tr:last').after(
-              '<tr data-id=' + project._id + '><td>' + project.title +  '</td><td>' + project.description + '</td><td>' + project.subject + '</td><td>' + project.grade + '</td><td>' + project.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
-          });
-          $('#show-project-list').hide();
+          var myProjectsTemplate = Handlebars.compile($('#project-show-all').html());
+          var myCurrentProjects = myProjectsTemplate({ projects: data});
+          $('.myProjects').html(myCurrentProjects);
+
+          // $('#show-project-list').hide();
           $('#project-table').show();
           $('#project-table-header').show();
 
@@ -112,7 +115,6 @@ $(document).ready(function() {
 
       lounge_api.search(keyParam, searchParam, function(err, data){
           handleError(err, data, function() {
-              alert("broke");
           });
           var projectTemplate = Handlebars.compile($('#project-results').html());
           var searchResults = projectTemplate({ projects: data});
@@ -129,30 +131,31 @@ $(document).ready(function() {
       $('.modal-backdrop').remove();
       lounge_api.create(formData, function(err, data){
         handleError(err,data);
-        $('#project-table tr:last').after(
-          '<tr data-id=' + data._id + '><td>' + data.title +  '</td><td>' + data.description + '</td><td>' + data.subject + '</td><td>' + data.grade + '</td><td>' + data.url + '</td><td><button class="edit btn btn-primary">Edit</button></td><td><button class="delete btn btn-danger">Delete</button></td></tr>');
+          var myProjectsTemplate = Handlebars.compile($('#project-show').html());
+          var myCurrentProjects = myProjectsTemplate(data);
+          $('.myProjects').append(myCurrentProjects);
       });
   });
 
   // Destroy or display edit window
-  $('#project-table').on('click', function(event){
+  $('.myProjects').on('click', function(event){
       event.preventDefault();
       var $target = $(event.target);
-      id = $target.parent().parent().data('id');
+      id = $target.parent().data('id');
       if($target.hasClass("delete")){
           console.log("deleting ", id);
-          $target.parent().parent().remove();
-
+          $target.parent().remove();
           lounge_api.destroy(id, function(err, data){});
+
       }else if($target.hasClass("edit")){
           console.log("editing ", id);
-
-          $('#update-title').val($target.parent().prev().prev().prev().prev().prev().text());
-          $('#update-description').val($target.parent().prev().prev().prev().prev().text());
-          $("#update-subject option[value='" + $target.parent().prev().prev().prev().val() + "']").attr("selected", true);
-          $("#update-grade option[value='" + $target.parent().prev().prev().val() + "']").attr("selected", true);
+          //THIS IS SUPER UGLY
+          $('#update-title').val($target.prev().prev().text());
+          $('#update-description').val($target.prev().children().first().text());
+          $("#update-subject option[value='" + $target.prev().children().first().next().next().text() + "']").attr("selected", true);
+          $("#update-grade option[value='" + $target.parent().prev().children().last().prev().prev().prev().text() + "']").attr("selected", true);
           $('#update-project').show();
-          $target.parent().parent().remove();
+          $target.parent().remove();
       }
   });
 

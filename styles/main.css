@@ -8,8 +8,8 @@ font-family: 'Quicksand', sans-serif;}
 }
 
 .nav-background {
-  background-color: #585858;
-  border-color: #585858;
+  background-color: #165a16;
+  border-color: #165a16;
   border-radius: 0px;
 }
 
@@ -18,6 +18,7 @@ font-family: 'Quicksand', sans-serif;}
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
   color: white;
+  width: 75%;
   background-color: #585858;
 }
 
@@ -26,12 +27,12 @@ font-family: 'Quicksand', sans-serif;}
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
   color: white;
-  background-color: #585858;
+  background-color: #165a16;
 }
 
 .jumbotron {
   text-align: center;
-  height: 400px;
+  height: 700px;
   background-image: url(http://www.thenation.com/wp-content/uploads/2015/03/empty_classroom_cc_img.jpg);
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -41,13 +42,16 @@ font-family: 'Quicksand', sans-serif;}
 
 #landing-page-headline {
   font-size: 64px;
+    text-shadow: 0 0 4px black;
+
   color: white;
 }
 
 #landing-page-subhead {
   font-size: 28px;
-  text-shadow: 0 0 1px white;
+  text-shadow: 0 0 4px black;
   color: white;
+  margin-bottom: 10%;
 }
 
 
@@ -92,15 +96,21 @@ font-family: 'Quicksand', sans-serif;}
 }
 
 #landing-page-login-button {
-  background-color: #FF9009;
-  border-color: #FF9009;
-  width: 100px;
+  background-color: #165a16;
+  border-color: #165a16;
+  width: 150px;
+  height:60px;
+    font-size: 1.8em;
+
 }
 
 #landing-page-reg-button {
-  background-color: #FF9009;
-  border-color: #FF9009;
-  width: 100px;
+  background-color: #165a16;
+  border-color: #165a16;
+  width: 150px;
+  height:60px;
+    font-size: 1.8em;
+
 }
 
 .landing-page-col-text {
@@ -111,7 +121,7 @@ font-family: 'Quicksand', sans-serif;}
 }
 
 .form-control {
-  width: 300px;
+  width: 250px;
 }
 
 /*    --------------------------------------------------
@@ -125,7 +135,7 @@ font-family: 'Quicksand', sans-serif;}
   padding-top: 50px;
 }
 #login .form-wrap {
-  width: 30%;
+  width: 50%;
   margin: 0 auto;
 }
 #login h1 {
@@ -151,7 +161,7 @@ font-family: 'Quicksand', sans-serif;}
 }
 .btn-custom {
   color: #fff;
-  background-color: #FF9009;
+  background-color: black;
 }
 .btn-custom:hover,
 .btn-custom:focus {
@@ -188,13 +198,13 @@ font-family: 'Quicksand', sans-serif;}
 }
 
 #login-submit-button {
-  background-color: #FF9009;
-  border-color: #FF9009;
+  background-color: #165a16;
+  border-color: #165a16;
 }
 
 #reg-submit-button {
-  background-color: #FF9009;
-  border-color: #FF9009;
+  background-color: #165a16;
+  border-color: #165a16;
 }
 
 #registration-complete {
@@ -215,7 +225,7 @@ font-family: 'Quicksand', sans-serif;}
 }
 .btn-custom {
   color: #fff;
-  background-color: #FF9009;
+  background-color: #165a16;
 }
 .btn-custom:hover,
 .btn-custom:focus {
@@ -228,9 +238,11 @@ font-family: 'Quicksand', sans-serif;}
 
 #show-project-list {
   display: none;
-  background-color: #FF9009;
-  border-color: #FF9009;
-  width: 185px;
+  background-color: #165a16;
+  border-color: #165a16;
+  padding: 10px 0px;
+  width: 100%;
+  margin: 5% auto;
 }
 
 #project-table, #project-table-header, .upload-confirm, #upload, #search {
@@ -239,11 +251,48 @@ font-family: 'Quicksand', sans-serif;}
 
 #add-new-project {
   display: none;
-  background-color: #FF9009;
-  border-color: #FF9009;
-  width: 185px;
+  background-color: #165a16;
+  border-color: #165a16;
+  padding: 10px 0px;
+  width: 100%;
+  margin: 5% auto;
 }
 
 #update-project {
   display: none;
+}
+ul{
+ list-style-type: none;
+}
+.landing_headers{
+  background-color: hsla(120,61%,21%, 0.40);
+  border-radius: 40px
+}
+.loading{
+  display:none;
+  float:left;
+  max-height: 40px;
+  margin-left: 10px;
+
+}
+#btn-login{
+  width:60%;
+  float:left;
+}
+.def-button, .def-button:hover,.def-button:focus {
+  background-color: #165a16;
+  border-color: #165a16;
+  color:white;
+}
+.search-btn{
+  margin-top:5%;
+}
+.project{
+  background-color: #E2EAB5;
+  border-radius: 10px;
+  height:200px;
+  margin: 1% 4%;
+}
+.results{
+  padding-left: 0px;
 }
